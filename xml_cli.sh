@@ -8,10 +8,11 @@ arquivo=$(readlink -f "$caminho_arquivo")
 
 mkdir -p "./resultados"
 
-dados=$(while read -r linha; do
-  grep -l "$linha" *.xml | xargs -I {} cp {} resultados/
+while read -r linha; do
+  grep -l -R "$linha"  --include="*.xml" | xargs -I {} mv {} resultados/
 done < "$arquivo"
-)
 
 
-echo "Os xml's foram copiados para a pasta resultados"
+
+echo "Total de xml's movidos para a pasta resultados:"
+ls -1 "./resultados" | wc -l
